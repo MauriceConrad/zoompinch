@@ -1,7 +1,7 @@
 {
   "name": "zoompinch",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "files": [
     "package.json",
@@ -31,16 +31,13 @@
     }
   },
   "dependencies": {
-    "@panzoom/panzoom": "^4.5.1",
     "@types/node": "^20.2.5",
-    "@vueuse/core": "^10.9.0",
-    "lodash": "^4.17.21"
+    "@vueuse/core": "^10.9.0"
   },
   "peerDependencies": {
     "vue": "^3.3.11"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191",
     "@vitejs/plugin-vue": "^3.1.0",
     "npm-watch": "^0.11.0",
     "sass": "^1.56.1",

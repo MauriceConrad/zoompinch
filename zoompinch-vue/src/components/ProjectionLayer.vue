@@ -43,7 +43,6 @@
 <script setup lang="ts">
 import { useZoom } from '../controllers/zoom';
 import { ref, defineProps, toRef, computed, onMounted, watch, toRefs, onUnmounted, reactive } from 'vue';
-import _ from 'lodash';
 import { radiansToDegrees } from '../controllers/helpers';
 
 export type Transform = {
