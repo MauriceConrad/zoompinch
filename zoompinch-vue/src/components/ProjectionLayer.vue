@@ -119,7 +119,6 @@ const {
   exposedTransform,
   calcProjectionTranslate,
   clientCoordinatesToCanvasCoordinates,
-  wrapperBounds,
   transitionEnabled,
   transitionDuration,
 } = useZoom({
@@ -228,7 +227,6 @@ defineExpose({
   applyTransform,
   calcProjectionTranslate,
   rotateCanvas,
-  wrapperBounds,
 });
 </script>
 
