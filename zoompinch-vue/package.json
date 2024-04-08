@@ -1,0 +1,52 @@
+{
+  "name": "zoompinch",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "package.json",
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/zoompinch.es.js",
+      "require": "./lib/zoompinch.umd.js"
+    },
+    "./style.css": "./lib/style.css"
+  },
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "npm link && npm-watch build",
+    "preview": "vite preview"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts,vue,html,scss",
+      "quiet": false
+    }
+  },
+  "dependencies": {
+    "@panzoom/panzoom": "^4.5.1",
+    "@types/node": "^20.2.5",
+    "@vueuse/core": "^10.9.0",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "npm-watch": "^0.11.0",
+    "sass": "^1.56.1",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "vite-plugin-dts": "^1.6.6",
+    "vue-tsc": "^2.0.7"
+  }
+}
