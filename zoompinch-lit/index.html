@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pancake demo</title>
+    <script type="module" src="/src/components/PanCake.ts"></script>
+    <style>
+      #app,
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      .my-container {
+        width: 800px;
+        height: 600px;
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="my-container">
+      <pan-cake width="536" height="802">
+        <div slot="canvas">
+          <img src="https://creactive-media.de/images/gallery/DSC05518.jpeg" style="width: 536px; height: 802px" />
+        </div>
+        <div slot="matrix">MATRIX</div>
+      </pan-cake>
+    </div>
+  </body>
+</html>
