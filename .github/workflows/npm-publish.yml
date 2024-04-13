@@ -24,6 +24,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
+      - name: Copy README to vue project
+        run: cp README.md zoompinch-vue/README.md
+
       - name: Build and publish
         working-directory: zoompinch-vue
         run: npm run build
