@@ -1,9 +1,5 @@
 ## Zoompinch
 
-## Try it out!
-
-You will get the idea of this project by trying it out and play with the reactive properties.
-
 ### Install
 
 ```bash
@@ -51,8 +47,7 @@ function handleClickOnLayer(event: MouseEvent) {
   gesture
 >
   <template #canvas>
-    <img
-      src="https://imagedelivery.net/mudX-CmAqIANL8bxoNCToA/489df5b2-38ce-46e7-32e0-d50170e8d800/public" style="width: 1536px; height: 2048px;" />
+    <img src="https://imagedelivery.net/mudX-CmAqIANL8bxoNCToA/489df5b2-38ce-46e7-32e0-d50170e8d800/public" style="width: 1536px; height: 2048px;" />
   </template>
   <template #matrix="{ composePoint }">
     <svg xmlns="http://www.w3.org/2000/svg" @click="handleClickOnLayer">
