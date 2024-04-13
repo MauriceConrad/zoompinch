@@ -3,13 +3,15 @@ import { useElementBounding } from '@vueuse/core';
 import { useTouch } from './touch';
 import { useWheel } from './wheel';
 import { useMouse } from './mouse';
-import { clamp, degreeToRadians, radiansToDegrees, rotatePoint } from '../controllers/helpers';
+import { useGesture } from './gesture';
+import { clamp, degreeToRadians, radiansToDegrees, rotatePoint, round } from '../controllers/helpers';
 
 export function useZoom({
   wrapperElementRef,
   canvasNaturalWidth,
   canvasNaturalHeight,
   offset,
+  bounds,
   rotationEnabled,
   minScale,
   maxScale,
@@ -18,6 +20,7 @@ export function useZoom({
   canvasNaturalWidth: Ref<number>;
   canvasNaturalHeight: Ref<number>;
   offset: Ref<{ top: number; left: number; right: number; bottom: number }>;
+  bounds: Ref<boolean>;
   rotationEnabled: Ref<boolean>;
   minScale: Ref<number>;
   maxScale: Ref<number>;
@@ -77,7 +80,7 @@ export function useZoom({
         const overflowX = canvasNaturalWidth.value * renderingScale.value - wrapperInnerWidth.value;
         const overflowY = canvasNaturalHeight.value * renderingScale.value - wrapperInnerHeight.value;
 
-        if (rotationEnabled.value) {
+        if (rotationEnabled.value || !bounds.value) {
           _translateX.value = newTranslateX;
           _translateY.value = newTranslateY;
         } else {
@@ -159,7 +162,7 @@ export function useZoom({
   });
 
   function getCenterOffset(scale: number, translate: [number, number], rotate: number) {
-    const centeredTranslationOffset = calcProjectionTranslate(scale, [0.5, 0.5], [0.5, 0.5]);
+    const centeredTranslationOffset = calcProjectionTranslate(scale, [0.5, 0.5], [0.5, 0.5], 0);
     const centeredPointNormal = [
       offset.value.left + centeredTranslationOffset[0] + canvasNaturalWidth.value * (scale * naturalScale.value) * 0.5,
       offset.value.top + centeredTranslationOffset[1] + canvasNaturalHeight.value * (scale * naturalScale.value) * 0.5,
@@ -172,18 +175,30 @@ export function useZoom({
     return [diffX, diffY];
   }
 
+  function getTransform() {
+    const offset = getCenterOffset(scale.value, [0, 0], rotate.value);
+    return {
+      x: round(translate.value[0] + offset[0], 6),
+      y: round(translate.value[1] + offset[1], 6),
+      scale: round(scale.value, 6),
+      rotate: round(radiansToDegrees(rotate.value), 6),
+    };
+  }
+
   const exposedTransform = computed({
     get() {
-      //const centeredTranslationOffset = calcProjectionTranslate(scale.value, [0.5, 0.5], [0.5, 0.5]);
-      const offset = getCenterOffset(scale.value, [0, 0], rotate.value);
-      return {
-        x: translate.value[0] + offset[0],
-        y: translate.value[1] + offset[1],
-        scale: scale.value,
-        rotate: radiansToDegrees(rotate.value),
-      };
+      return getTransform();
     },
     set(newTransform) {
+      const __curTransform = getTransform();
+      if (
+        newTransform.x === __curTransform.x &&
+        newTransform.y === __curTransform.y &&
+        newTransform.scale === __curTransform.scale &&
+        newTransform.rotate === __curTransform.rotate
+      ) {
+        return;
+      }
       const radians = degreeToRadians(newTransform.rotate);
       const offset = getCenterOffset(newTransform.scale, [0, 0], radians);
       translate.value = [newTransform.x - offset[0], newTransform.y - offset[1]];
@@ -249,22 +264,48 @@ export function useZoom({
     return translatedPoint;
   }
 
+  function compose(x: number, y: number) {
+    const relX = x / canvasNaturalWidth.value;
+    const relY = y / canvasNaturalHeight.value;
+    return composePoint(relX, relY);
+  }
+
   // Helper function that calculates the translation needed to map a point on the canvas to a point on the wrapper
-  function calcProjectionTranslate(newScale: number, wrapperPosition: [number, number], canvasPosition: [number, number]) {
+  function calcProjectionTranslate(
+    newScale: number,
+    wrapperPosition: [number, number],
+    canvasPosition: [number, number],
+    virtualRotate?: number
+  ) {
     // Calculate the intrinsic dimensions of the canvas
     const canvasIntrinsicWidth = canvasNaturalWidth.value * naturalScale.value;
     const canvasIntrinsicHeight = canvasNaturalHeight.value * naturalScale.value;
-    // Calculate the real dimensions of the canvas
+    // Calculate the real x,y coordinates of the canvas
     const canvasRealX = canvasPosition[0] * canvasIntrinsicWidth * newScale;
     const canvasRealY = canvasPosition[1] * canvasIntrinsicHeight * newScale;
+    const canvsRealRotated = rotatePoint([canvasRealX, canvasRealY], [0, 0], virtualRotate ?? rotate.value);
     // Calculate the real dimensions of the wrapper
     const wrapperRealX = wrapperPosition[0] * wrapperInnerWidth.value;
     const wrapperRealY = wrapperPosition[1] * wrapperInnerHeight.value;
     // Calculate the delta between the canvas and the wrapper
-    const deltaX = wrapperRealX - canvasRealX;
-    const deltaY = wrapperRealY - canvasRealY;
+    const deltaX = wrapperRealX - canvsRealRotated[0];
+    const deltaY = wrapperRealY - canvsRealRotated[1];
 
     return [deltaX, deltaY] as [number, number];
+  }
+
+  function rotateCanvas(x: number, y: number, radians: number) {
+    const newRotate = radians; // rotate.value + radians;
+    const offset = getCenterOffset(scale.value, [0, 0], newRotate);
+    const centeredTranslate = [0 - offset[0], 0 - offset[1]] as [number, number];
+    const centeredScale = scale.value;
+    const centeredRotate = newRotate;
+    const virtualPoint = composePoint(x, y, centeredScale, centeredTranslate, centeredRotate);
+    const currPoint = composePoint(x, y);
+    const deltaX = currPoint[0] - virtualPoint[0];
+    const deltaY = currPoint[1] - virtualPoint[1];
+    translate.value = [centeredTranslate[0] + deltaX, centeredTranslate[1] + deltaY] as [number, number];
+    rotate.value = newRotate;
   }
 
   const { handleTouchend, handleTouchmove, handleTouchstart } = useTouch({
@@ -297,36 +338,12 @@ export function useZoom({
 
   const { handleMousedown, handleMouseup, handleMousemove } = useMouse(translate);
 
-  function rotateCanvas(x: number, y: number, radians: number) {
-    const newRotate = radians; // rotate.value + radians;
-    const offset = getCenterOffset(scale.value, [0, 0], newRotate);
-    const centeredTranslate = [0 - offset[0], 0 - offset[1]] as [number, number];
-    const centeredScale = scale.value;
-    const centeredRotate = newRotate;
-    const virtualPoint = composePoint(x, y, centeredScale, centeredTranslate, centeredRotate);
-    const currPoint = composePoint(x, y);
-    const deltaX = currPoint[0] - virtualPoint[0];
-    const deltaY = currPoint[1] - virtualPoint[1];
-    translate.value = [centeredTranslate[0] + deltaX, centeredTranslate[1] + deltaY] as [number, number];
-    rotate.value = newRotate;
-  }
-
-  let gestureStartRotation = 0;
-  const handleGesturestart = (event: UIEvent) => {
-    gestureStartRotation = rotate.value;
-  };
-  const handleGesturechange = (event: any) => {
-    const currRotation = (event as any).rotation as number;
-    if (currRotation === 0) {
-      return;
-    }
-
-    // const relPos = normalizeMatrixCoordinates(event.clientX, event.clientY);
-    // rotateCanvas(relPos[0], relPos[1], gestureStartRotation + degreeToRadians(currRotation));
-  };
-  const handleGestureend = (event: any) => {
-    //console.log('gestureend', event);
-  };
+  const { handleGesturestart, handleGesturechange, handleGestureend } = useGesture(
+    rotate,
+    rotationEnabled,
+    rotateCanvas,
+    normalizeMatrixCoordinates
+  );
 
   return {
     handleTouchend,
@@ -349,6 +366,7 @@ export function useZoom({
     normalizeMatrixCoordinates,
     clientCoordinatesToCanvasCoordinates,
     composePoint,
+    compose,
     handleWheel,
     applyTransform,
     handleMousedown,

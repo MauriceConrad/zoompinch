@@ -41,3 +41,8 @@ export function moveAlongVector(startPoint: [number, number], vector: [number, n
   const deltaY = vector[1] * length;
   return [startPoint[0] + deltaX, startPoint[1] + deltaY];
 }
+
+export function round(value: number, decimals: number) {
+  const factor = Math.pow(10, decimals);
+  return Math.round(value * factor) / factor;
+}

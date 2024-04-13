@@ -1,1 +1,1 @@
-export { default as ProjectionLayer } from './components/ProjectionLayer.vue';
+export { default as Zoompinch } from './components/Zoompinch.vue';

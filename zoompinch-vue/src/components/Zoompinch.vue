@@ -1,7 +1,7 @@
 <template>
   <div
-    ref="projectionLayerRef"
-    class="projection-layer"
+    ref="zoompinchRef"
+    class="zoompinch"
     :style="{
       '--canvas-width': `${width}px`,
       '--canvas-height': `${height}px`,
@@ -22,7 +22,7 @@
     @wheel="wheelProxy"
     @touchstart="touchstartProxy"
     @mousedown="mousedownProxy"
-    @gesturestart="handleGesturestart"
+    @gesturestart="gesturestartProxy"
   >
     <div ref="canvasRef" class="canvas">
       <slot name="canvas" />
@@ -35,7 +35,13 @@
         <circle :cx="composePoint(1, 1)[0]" :cy="composePoint(1, 1)[1]" r="5" />
         <circle :cx="composePoint(0, 1)[0]" :cy="composePoint(0, 1)[1]" r="5" />
       </svg> -->
-      <slot name="matrix" />
+      <slot
+        name="matrix"
+        :compose-point="composePoint"
+        :compose="compose"
+        :clientCoordinatesToCanvasCoordinates="clientCoordinatesToCanvasCoordinates"
+        :normalizeMatrixCoordinates="normalizeMatrixCoordinates"
+      />
     </div>
   </div>
 </template>
@@ -70,6 +76,7 @@ const props = withDefaults(
     mouse?: boolean;
     wheel?: boolean;
     touch?: boolean;
+    gesture?: boolean;
   }>(),
   {
     transform: () => ({ x: 0, y: 0, scale: 1, rotate: 0 }),
@@ -81,13 +88,14 @@ const props = withDefaults(
     mouse: true,
     wheel: true,
     touch: true,
+    gesture: true,
   }
 );
 const emit = defineEmits<{
   'update:transform': [transform: Transform];
 }>();
 
-const projectionLayerRef = ref<HTMLElement>();
+const zoompinchRef = ref<HTMLElement>();
 const canvasRef = ref<HTMLElement>();
 const matrixRef = ref<HTMLElement>();
 
@@ -116,16 +124,19 @@ const {
   handleGestureend,
   applyTransform,
   rotateCanvas,
+  compose,
   exposedTransform,
   calcProjectionTranslate,
   clientCoordinatesToCanvasCoordinates,
+  normalizeMatrixCoordinates,
   transitionEnabled,
   transitionDuration,
 } = useZoom({
-  wrapperElementRef: projectionLayerRef,
+  wrapperElementRef: zoompinchRef,
   canvasNaturalWidth,
   canvasNaturalHeight,
   offset,
+  bounds: toRef(props, 'bounds'),
   rotationEnabled,
   minScale: toRef(props, 'minScale'),
   maxScale: toRef(props, 'maxScale'),
@@ -145,19 +156,12 @@ watch(exposedTransform, () => {
 watch(
   () => props.transform,
   () => {
-    if (
-      props.transform.x !== exposedTransform.value.x ||
-      props.transform.y !== exposedTransform.value.y ||
-      props.transform.scale !== exposedTransform.value.scale ||
-      props.transform.rotate !== exposedTransform.value.rotate
-    ) {
-      exposedTransform.value = {
-        x: props.transform.x,
-        y: props.transform.y,
-        scale: props.transform.scale,
-        rotate: props.transform.rotate,
-      };
-    }
+    exposedTransform.value = {
+      x: props.transform.x,
+      y: props.transform.y,
+      scale: props.transform.scale,
+      rotate: props.transform.rotate,
+    };
   },
   { deep: true }
 );
@@ -206,24 +210,42 @@ const mouseupProxy = (event: MouseEvent) => {
   }
 };
 
+const gesturestartProxy = (event: any) => {
+  if (props.gesture) {
+    handleGesturestart(event);
+  }
+};
+const gesturechangeProxy = (event: any) => {
+  if (props.gesture) {
+    handleGesturechange(event);
+  }
+};
+const gestureendProxy = (event: any) => {
+  if (props.gesture) {
+    handleGestureend(event);
+  }
+};
+
 window.addEventListener('touchmove', touchmoveProxy);
 window.addEventListener('touchend', touchendProxy);
 window.addEventListener('mouseup', mouseupProxy);
 window.addEventListener('mousemove', mousemoveProxy);
-window.addEventListener('gesturechange', handleGesturechange);
-window.addEventListener('gestureend', handleGestureend);
+window.addEventListener('gesturechange', gesturechangeProxy);
+window.addEventListener('gestureend', gestureendProxy);
 onUnmounted(() => {
   window.removeEventListener('touchmove', touchmoveProxy);
   window.removeEventListener('touchend', touchendProxy);
   window.removeEventListener('mouseup', mouseupProxy);
   window.removeEventListener('mousemove', mousemoveProxy);
-  window.removeEventListener('gesturechange', handleGesturechange);
-  window.removeEventListener('gestureend', handleGestureend);
+  window.removeEventListener('gesturechange', gesturechangeProxy);
+  window.removeEventListener('gestureend', gestureendProxy);
 });
 
 defineExpose({
+  compose,
   composePoint,
   clientCoordinatesToCanvasCoordinates,
+  normalizeMatrixCoordinates,
   applyTransform,
   calcProjectionTranslate,
   rotateCanvas,
@@ -231,7 +253,7 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-.projection-layer {
+.zoompinch {
   width: 100%;
   height: 100%;
   position: relative;
