@@ -132,7 +132,7 @@
         :mouse="mouseEvents"
         :touch="touchEvents"
         :wheel="wheelEvents"
-        :gesture="false"
+        :gesture="gestureEvents"
       >
         <template #canvas>
           <img
@@ -141,9 +141,9 @@
           />
         </template>
         <template #matrix="{ compose }">
-          <svg xmlns="http://www.w3.org/2000/svg" @click="handleClickOnLayer">
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" @click="handleClickOnLayer">
             <circle :cx="compose(1536 / 2, 2048 / 2)[0]" :cy="compose(1536 / 2, 2048 / 2)[1]" r="5" style="fill: #f00" />
-          </svg>
+          </svg> -->
         </template>
       </zoompinch>
     </div>
@@ -155,6 +155,8 @@ import { Zoompinch } from 'zoompinch';
 import 'zoompinch/style.css';
 import { reactive, ref, watch, watchEffect } from 'vue';
 import { NInputNumber, NSwitch, NButton } from 'naive-ui';
+
+// Flicker bug reproducable: 100,0,0.1,180
 
 const rotation = ref(true);
 const bounds = ref(false);
@@ -173,7 +175,8 @@ const zoompinchRef = ref<InstanceType<typeof Zoompinch>>();
 const offset = reactive({ top: 10, right: 10, bottom: 10, left: 10 });
 (window as any).offset = offset;
 
-const transform = ref({ x: 0, y: 0, scale: 1, rotate: 0 });
+//const transform = ref({ x: 0, y: 0, scale: 1, rotate: 0 });
+const transform = ref({ x: 100, y: 0, scale: 0.1, rotate: 180 }); // Flicker bug reproducable: 100,0,0.1,180
 (window as any).transform = transform;
 const updateTransform = (newTransform: Partial<typeof transform.value>) => {
   transform.value = { ...transform.value, ...newTransform };
@@ -238,9 +241,9 @@ function handleClickOnLayer(event: MouseEvent) {
     gap: 10px;
 
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    // @media screen and (max-width: 700px) {
-    //   grid-template-columns: repeat(auto-fill, minmax(1fr, ));
-    // }
+    @media screen and (max-width: 700px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
 
     &.small {
       grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
@@ -249,6 +252,15 @@ function handleClickOnLayer(event: MouseEvent) {
       .description {
         font-size: 0.9em;
         opacity: 0.7;
+      }
+      .n-input-number {
+        ::v-deep(.n-input__suffix) {
+          .n-button {
+            @media screen and (max-width: 700px) {
+              display: none;
+            }
+          }
+        }
       }
     }
   }

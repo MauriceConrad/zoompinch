@@ -334,7 +334,7 @@ export class PanCake extends LitElement {
         const innerCanvasRel = this.touchStarts[0].canvasRel;
 
         // Project the scale
-        const [scaleDeltaX, scaleDeltaY] = this.calcProjectionTranslate(futureScale, innerWrapperRelPos, innerCanvasRel);
+        const [scaleDeltaX, scaleDeltaY] = this.calcProjectionTranslate(futureScale, innerWrapperRelPos, innerCanvasRel, 0);
 
         let rotationDeltaX = 0;
         let rotationDeltaY = 0;

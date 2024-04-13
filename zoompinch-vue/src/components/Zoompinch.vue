@@ -209,19 +209,25 @@ const mouseupProxy = (event: MouseEvent) => {
     handleMouseup(event);
   }
 };
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+const gestureEnabled = computed(() => {
+  return !isTouchDevice() && props.gesture;
+});
 
 const gesturestartProxy = (event: any) => {
-  if (props.gesture) {
+  if (gestureEnabled.value) {
     handleGesturestart(event);
   }
 };
 const gesturechangeProxy = (event: any) => {
-  if (props.gesture) {
+  if (gestureEnabled.value) {
     handleGesturechange(event);
   }
 };
 const gestureendProxy = (event: any) => {
-  if (props.gesture) {
+  if (gestureEnabled.value) {
     handleGestureend(event);
   }
 };

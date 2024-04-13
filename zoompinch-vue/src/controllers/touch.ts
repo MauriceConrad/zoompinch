@@ -179,7 +179,7 @@ export function useTouch({
     }
   };
   const handleTouchend = (event: TouchEvent) => {
-    event.preventDefault();
+    //event.preventDefault();
 
     if (event.touches.length === 0) {
       touchStarts = null;
