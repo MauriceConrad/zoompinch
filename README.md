@@ -8,28 +8,6 @@ $ npm install zoompinch
 
 ### Example usage
 
-```typescript
-import { Zoompinch } from 'zoompinch';
-import 'zoompich/style.css';
-
-// Just the ref instance in which the component instance will live
-const zoompinchRef = ref<InstanceType<typeof ProjectionLayer>>();
-
-// A reactive transform object
-const transform = ref({
-  x: 0,
-  y: 0,
-  scale: 1,
-  rotate: 1,
-});
-
-function handleClickOnLayer(event: MouseEvent) {
-  const [x, y] = zoompinchRef.value?.normalizeMatrixCoordinates(event.clientX, event.clientY);
-
-  console.log('clicked at', x, y);
-}
-```
-
 ```vue
 <zoompinch
   ref="zoompinchRef"
@@ -56,6 +34,28 @@ function handleClickOnLayer(event: MouseEvent) {
     </svg>
   </template>
 </zoompinch>
+```
+
+```typescript
+import { Zoompinch } from 'zoompinch';
+import 'zoompich/style.css';
+
+// Just the ref instance in which the component instance will live
+const zoompinchRef = ref<InstanceType<typeof ProjectionLayer>>();
+
+// A reactive transform object
+const transform = ref({
+  x: 0,
+  y: 0,
+  scale: 1,
+  rotate: 1,
+});
+
+function handleClickOnLayer(event: MouseEvent) {
+  const [x, y] = zoompinchRef.value?.normalizeMatrixCoordinates(event.clientX, event.clientY);
+
+  console.log('clicked at', x, y);
+}
 ```
 
 #### Properties
