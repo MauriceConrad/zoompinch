@@ -13,6 +13,6 @@ export default defineConfig({
     }),
   ],
   optimizeDeps: {
-    exclude: ['projection-layer'],
+    exclude: ['zoompinch'],
   },
 });

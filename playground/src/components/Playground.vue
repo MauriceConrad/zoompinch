@@ -132,7 +132,7 @@
         :mouse="mouseEvents"
         :touch="touchEvents"
         :wheel="wheelEvents"
-        :gesture="gestureEvents"
+        :gesture="false"
       >
         <template #canvas>
           <img

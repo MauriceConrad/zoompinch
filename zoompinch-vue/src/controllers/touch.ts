@@ -36,7 +36,8 @@ export function useTouch({
   calcProjectionTranslate: (
     scale: number,
     wrapperInnerCoords: [number, number],
-    canvasAnchorCoords: [number, number]
+    canvasAnchorCoords: [number, number],
+    virtualRotate?: number
   ) => [number, number];
 }) {
   let touchStarts:
@@ -116,7 +117,7 @@ export function useTouch({
         const innerCanvasRel = touchStarts[0].canvasRel;
 
         // Project the scale
-        const [scaleDeltaX, scaleDeltaY] = calcProjectionTranslate(futureScale, innerWrapperRelPos, innerCanvasRel);
+        const [scaleDeltaX, scaleDeltaY] = calcProjectionTranslate(futureScale, innerWrapperRelPos, innerCanvasRel, 0);
 
         let rotationDeltaX = 0;
         let rotationDeltaY = 0;

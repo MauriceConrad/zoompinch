@@ -1,10 +1,12 @@
 <template>
   <div class="root">
+    <nav-bar />
     <playground />
   </div>
 </template>
 
 <script setup lang="ts">
+import NavBar from './components/NavBar.vue';
 import Playground from './components/Playground.vue';
 </script>
 
@@ -13,7 +15,9 @@ import Playground from './components/Playground.vue';
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0px;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 </style>
 

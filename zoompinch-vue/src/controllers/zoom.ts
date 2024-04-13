@@ -141,7 +141,7 @@ export function useZoom({
     canvasAnchorCoords: [number, number],
     animate = false
   ) {
-    const scaleTranslation = calcProjectionTranslate(newScale, wrapperInnerCoords, canvasAnchorCoords);
+    const scaleTranslation = calcProjectionTranslate(newScale, wrapperInnerCoords, canvasAnchorCoords, 0);
     scale.value = newScale;
     translate.value = scaleTranslation;
     transitionEnabled.value = animate;
