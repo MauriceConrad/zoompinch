@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <!-- <nav-bar /> -->
+    <nav-bar />
     <playground />
   </div>
 </template>

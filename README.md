@@ -1,16 +1,16 @@
 ## Zoompinch
 
-Apply a pinch-and-zoom experience that’s feels native and communicates the transform reactively in both directions.
+Apply a pinch-and-zoom experience that’s feels native and communicates the transform reactively and lets you project any layer on top of the transformed canvas.
 
-Play around with the [demo here](https://zoompinch.pages.dev)
+**Play around with the [demo here](https://zoompinch.pages.dev)**
 
 ### Mathematical correct pinch on touch
 
-Unlike other libraries, _Pinchzoom_ does not just uses the center point between two fingers as projection center. The fingers get correctly projected on the virtual canvas. This makes rotation
+Unlike other libraries, _Zoompinch_ does not just uses the center point between two fingers as projection center. The fingers get correctly projected on the virtual canvas. This makes pinching on touch devices feel native-like.
 
-### Matrix Layer on top
+### Touch, Wheelm, Mouse and Trackpad Gestures!
 
-You can use a matrix layer on top that projects any virtual point within the canvas to the real absolute coordinates.
+Adside of touch, mouse and wheel events, **gesture events** (Safari Desktop) are supported as well! Try it out on the [demo](https://zoompinch.pages.dev)
 
 ### Currently supported platforms:
 

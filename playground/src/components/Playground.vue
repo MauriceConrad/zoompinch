@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="playground">
     <header>
       <section>
@@ -213,6 +213,7 @@ onMounted(() => {
     border-radius: 10px;
     padding: 20px;
     display: grid;
+    display: none;
     flex: none;
     box-sizing: border-box;
     gap: 20px;
@@ -276,36 +277,5 @@ onMounted(() => {
       height: 100%;
     }
   }
-}
-</style> -->
-
-<template>
-  <div class="my-container">
-    <zoompinch
-      :width="536"
-      :height="802"
-      :bounds="false"
-      :rotation="true"
-      :offset="{ left: 0, top: 0, bottom: 0, right: 0 }"
-      :min-scale="0.1"
-      :max-scale="10"
-    >
-      <template #canvas>
-        <img src="https://creactive-media.de/images/gallery/DSC05518.jpeg" style="width: 536px; height: 802px" />
-      </template>
-    </zoompinch>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { Zoompinch } from 'zoompinch';
-import 'zoompinch/style.css';
-</script>
-
-<style scoped lang="scss">
-.my-container {
-  width: 100%;
-  height: 500px;
-  background-color: #eee;
 }
 </style>
