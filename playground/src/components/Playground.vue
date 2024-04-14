@@ -175,8 +175,7 @@ const zoompinchRef = ref<InstanceType<typeof Zoompinch>>();
 const offset = reactive({ top: 10, right: 10, bottom: 10, left: 10 });
 (window as any).offset = offset;
 
-//const transform = ref({ x: 0, y: 0, scale: 1, rotate: 0 });
-const transform = ref({ x: 100, y: 0, scale: 0.1, rotate: 180 }); // Flicker bug reproducable: 100,0,0.1,180
+const transform = ref({ x: 0, y: 0, scale: 1, rotate: 0 });
 (window as any).transform = transform;
 const updateTransform = (newTransform: Partial<typeof transform.value>) => {
   transform.value = { ...transform.value, ...newTransform };
@@ -207,7 +206,7 @@ function handleClickOnLayer(event: MouseEvent) {
   overflow: hidden;
   flex-direction: row;
 
-  gap: 20px;
+  gap: 10px;
   @media screen and (max-width: 700px) {
     flex-direction: column;
   }
