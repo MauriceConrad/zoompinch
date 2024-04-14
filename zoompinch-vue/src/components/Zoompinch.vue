@@ -251,6 +251,15 @@ onUnmounted(() => {
   window.removeEventListener('gestureend', gestureendProxy);
 });
 
+const wrapperBounds = computed(() => {
+  return {
+    x: wrapperX.value,
+    y: wrapperY.value,
+    width: wrapperWidth.value,
+    height: wrapperHeight.value,
+  };
+});
+
 defineExpose({
   compose,
   composePoint,
@@ -259,14 +268,7 @@ defineExpose({
   applyTransform,
   calcProjectionTranslate,
   rotateCanvas,
-  wrapperBounds: computed(() => {
-    return {
-      x: wrapperX.value,
-      y: wrapperY.value,
-      width: wrapperWidth.value,
-      height: wrapperHeight.value,
-    };
-  }),
+  wrapperBounds,
 });
 </script>
 
