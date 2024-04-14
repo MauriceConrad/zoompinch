@@ -4,6 +4,8 @@ Apply a pinch-and-zoom experience that’s feels native and communicates the tra
 
 **Play around with the [demo here](https://zoompinch.pages.dev)**
 
+![Mobile demo](https://zoompinch.pages.dev/zoompinch_demo.gif)
+
 ### Mathematical correct pinch on touch
 
 Unlike other libraries, _Zoompinch_ does not just uses the center point between two fingers as projection center. The fingers get correctly projected on the virtual canvas. This makes pinching on touch devices feel native-like.
