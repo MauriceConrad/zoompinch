@@ -193,6 +193,15 @@ function fit(animate: boolean) {
 onMounted(() => {
   setTimeout(() => fit(true));
 });
+
+watch(
+  () => zoompinchRef.value?.wrapperBounds,
+  () => {
+    requestAnimationFrame(() => {
+      zoompinchRef.value?.applyTransform(1, [0.5, 0.5], [0.5, 0.5], false);
+    });
+  }
+);
 </script>
 
 <style scoped lang="scss">

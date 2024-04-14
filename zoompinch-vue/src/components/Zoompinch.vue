@@ -131,6 +131,10 @@ const {
   normalizeMatrixCoordinates,
   transitionEnabled,
   transitionDuration,
+  wrapperX,
+  wrapperY,
+  wrapperWidth,
+  wrapperHeight,
 } = useZoom({
   wrapperElementRef: zoompinchRef,
   canvasNaturalWidth,
@@ -255,6 +259,14 @@ defineExpose({
   applyTransform,
   calcProjectionTranslate,
   rotateCanvas,
+  wrapperBounds: computed(() => {
+    return {
+      x: wrapperX.value,
+      y: wrapperY.value,
+      width: wrapperWidth.value,
+      height: wrapperHeight.value,
+    };
+  }),
 });
 </script>
 

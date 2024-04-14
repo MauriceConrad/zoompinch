@@ -375,5 +375,9 @@ export function useZoom({
     wrapperBounds,
     transitionEnabled,
     transitionDuration,
+    wrapperX,
+    wrapperY,
+    wrapperWidth,
+    wrapperHeight,
   };
 }
