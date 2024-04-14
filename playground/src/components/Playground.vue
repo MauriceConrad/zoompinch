@@ -188,7 +188,7 @@ function handleClickOnLayer(event: MouseEvent) {
   alert(`clicked at ${x}, ${y}`);
 }
 function fit(animate: boolean) {
-  zoompinchRef.value?.applyTransform(1, [0.5, 0.5], [0.5, 0.5], animate);
+  transform.value = { x: 0, y: 0, scale: 1, rotate: 0 };
 }
 onMounted(() => {
   setTimeout(() => fit(true));
