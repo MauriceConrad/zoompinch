@@ -56,6 +56,9 @@ jobs:
       - name: Install wrangler
         run: npm install --save-dev wrangler@latest
         working-directory: playground
+      - name: Build playground
+        run: npm run build
+        working-directory: playground
       - name: Deploy to Cloudflare Pages
         run: npx wrangler pages deploy dist --project-name ${{ env.CLOUDFLARE_PROJECT_NAME }} --branch main
         working-directory: playground
