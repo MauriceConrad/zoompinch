@@ -20,24 +20,41 @@
         font-family: Arial, sans-serif;
       }
       .my-container {
-        width: 800px;
-        height: 600px;
+        width: 100%;
+        height: 500px;
         background-color: #eee;
       }
     </style>
   </head>
   <body>
     <div class="my-container">
-      <pan-cake width="536" height="802">
+      <pan-cake width="536" height="802" translateX="100" translateY="0">
         <div slot="canvas">
           <img src="https://creactive-media.de/images/gallery/DSC05518.jpeg" style="width: 536px; height: 802px" />
         </div>
-        <div slot="matrix">MATRIX</div>
+        <div slot="matrix">
+          <svg xmlns="http://www.org/2000/svg" width="100%" height="100%">
+            <circle id="center-circle" r="5" style="fill: #f00" cx="100" cy="100" />
+          </svg>
+        </div>
       </pan-cake>
     </div>
 
-    <script>
+    <script type="module">
       const panCake = document.querySelector('pan-cake');
+
+      setTimeout(() => {
+        // console.log('FIT');
+        // panCake.applyTransform(1, [0.5, 0.5], [0.5, 0.5], true);
+        // setTimeout(() => {
+        //   panCake.rotateCanvas(0.5, 0.5, Math.PI / 4);
+        // }, 1000);
+
+        const centerCircle = document.getElementById('center-circle');
+        const [cx, cy] = panCake.composePoint(0.5, 0.5);
+        centerCircle.setAttribute('cx', cx.toString());
+        centerCircle.setAttribute('cy', cy.toString());
+      }, 5000);
     </script>
   </body>
 </html>

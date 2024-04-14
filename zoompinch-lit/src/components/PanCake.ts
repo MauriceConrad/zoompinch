@@ -1,8 +1,8 @@
 import { LitElement, PropertyValueMap, css, html, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import styles from './PanCake.scss';
-import { rotatePoint } from '../util/vector';
-import { clamp, degreeToRadians, getAngleBetweenTwoPoints } from '../util/helpers';
+import { rotatePoint, clamp, degreeToRadians, getAngleBetweenTwoPoints, radiansToDegrees, round } from '../util/helpers';
+import { calcProjectionTranslate, clientCoordsToWrapperCoords, composePoint, getCanvasCoords, relativeWrapperCoordinatesFromClientCoords } from '../controllers/projection';
 
 @customElement('pan-cake')
 export class PanCake extends LitElement {
@@ -20,14 +20,6 @@ export class PanCake extends LitElement {
   @property({ type: Number })
   offsetBottom = 0;
   @property({ type: Number })
-  translateX = 0;
-  @property({ type: Number })
-  translateY = 0;
-  @property({ type: Number })
-  scale = 1;
-  @property({ type: Number })
-  rotate = 0;
-  @property({ type: Number })
   minScale = 0.5;
   @property({ type: Number })
   maxScale = 10;
@@ -36,21 +28,160 @@ export class PanCake extends LitElement {
   @property({ type: Boolean })
   allowRotation = true;
 
-  public test() {
-    console.log('test');
+  @property({ type: Number })
+  _translateX = 0;
+  @property({ type: Number })
+  get translateX() {
+    return this.sugarTransform().x;
   }
+  set translateX(newTranslateX) {
+    if (this.translateX === newTranslateX) {
+      return;
+    }
+    const { translateX } = this.normalizeSugaredTransform({ x: newTranslateX, y: this.translateY, scale: this.scale, rotate: this.rotate });
+    this._translateX = translateX;
+
+    if (!this.transitionEnabledProtected) {
+      this.transitionEnabled = false;
+    }
+  }
+  @property({ type: Number })
+  _translateY = 0;
+  @property({ type: Number })
+  get translateY() {
+    return this.sugarTransform().y;
+  }
+  set translateY(newTranslateY) {
+    if (this.translateY === newTranslateY) {
+      return;
+    }
+    const { translateY } = this.normalizeSugaredTransform({ x: this.translateX, y: newTranslateY, scale: this.scale, rotate: this.rotate });
+    this._translateY = translateY;
+
+    if (!this.transitionEnabledProtected) {
+      this.transitionEnabled = false;
+    }
+  }
+  @property({ type: Number })
+  _scale = 1;
+  @property({ type: Number })
+  get scale() {
+    return this.sugarTransform().scale;
+  }
+  set scale(newScale) {
+    if (this.scale === newScale) {
+      return;
+    }
+    const newTransform = { x: this.translateX, y: this.translateY, scale: newScale, rotate: this.rotate };
+    const { scale, translateX, translateY } = this.normalizeSugaredTransform(newTransform);
+    this._scale = scale;
+    this._translateX = translateX;
+    this._translateY = translateY;
+
+    if (!this.transitionEnabledProtected) {
+      this.transitionEnabled = false;
+    }
+  }
+  @property({ type: Number })
+  _rotate = 0;
+  @property({ type: Number })
+  get rotate() {
+    return this.sugarTransform().rotate;
+  }
+  set rotate(newRotate) {
+    if (this.rotate === newRotate) {
+      return;
+    }
+    const { rotate, translateX, translateY } = this.normalizeSugaredTransform({ x: this.translateX, y: this.translateY, scale: this.scale, rotate: newRotate });
+    this._translateX = translateX;
+    this._translateY = translateY;
+    this._rotate = rotate;
+
+    if (!this.transitionEnabledProtected) {
+      this.transitionEnabled = false;
+    }
+  }
+
+  requestUpdate(updatedProp: string) {
+    super.requestUpdate();
+    if (updatedProp === '_translateX') {
+      if (this.translateX) {
+        this.setAttribute('translateX', this.translateX.toString());
+      }
+    }
+    if (updatedProp === '_translateY') {
+      if (this.translateY) {
+        this.setAttribute('translateY', this.translateY.toString());
+      }
+    }
+    if (updatedProp === '_scale') {
+      if (this.scale) {
+        this.setAttribute('scale', this.scale.toString());
+      }
+    }
+    if (updatedProp === '_rotate') {
+      if (this.rotate) {
+        this.setAttribute('rotate', this.rotate.toString());
+      }
+    }
+  }
+
+  normalizeSugaredTransform(newTransform: { x: number; y: number; scale: number; rotate: number }) {
+    const radians = degreeToRadians(newTransform.rotate);
+    const offset = this.getCenterOffset(newTransform.scale, [0, 0], radians);
+    return {
+      translateX: newTransform.x - offset[0],
+      translateY: newTransform.y - offset[1],
+      scale: newTransform.scale,
+      rotate: radians,
+    };
+  }
+  sugarTransform() {
+    const offset = this.getCenterOffset(this._scale, [0, 0], this._rotate);
+    return {
+      x: round(this._translateX + offset[0], 6),
+      y: round(this._translateY + offset[1], 6),
+      scale: round(this._scale, 6),
+      rotate: round(radiansToDegrees(this._rotate), 6),
+    };
+  }
+  private transitionDuration = 0.3;
+  private transitionEnabled = false;
+  private transitionEnabledProtected = false;
+  public applyTransform(newScale: number, wrapperInnerCoords: [number, number], canvasAnchorCoords: [number, number], animate = false) {
+    const [translateX, translateY] = this.calcProjectionTranslate(newScale, wrapperInnerCoords, canvasAnchorCoords, 0);
+    this._scale = newScale;
+    this._translateX = translateX;
+    this._translateY = translateY;
+    this.transitionEnabled = animate;
+    this.transitionEnabledProtected = true;
+    // Wait for the next tick to disable the transition protection
+    window.requestAnimationFrame(() => {
+      this.transitionEnabledProtected = false;
+    });
+    setTimeout(() => {
+      this.transitionEnabled = false;
+    }, this.transitionDuration * 1000);
+  }
+
+  // attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
+  //   // super
+  //   super.attributeChangedCallback(name, _old, value);
+  // }
 
   render() {
     return html`
       <div
         class="pan-cake"
-        style="--canvas-width: ${this.width}px; --canvas-height: ${this.height}px; --scale: ${this.renderingScale}; --translate-x: ${this.renderingTranslateX}px; --translate-y: ${this.renderingTranslateY}px; --rotate: ${this.renderingRotate}deg;"
+        style="--canvas-width: ${this.width}px; --canvas-height: ${this.height}px; --scale: ${this.renderingScale}; --translate-x: ${this.renderingTranslateX}px; --translate-y: ${this.renderingTranslateY}px; --rotate: ${radiansToDegrees(
+          this.renderingRotate
+        )}deg; --transition-duration: ${this.transitionDuration}s; transition: ${this.transitionEnabled ? `transform var(--transition-duration)` : 'none'};"
       >
         <div class="canvas">
           <slot name="canvas"></slot>
         </div>
         <div class="matrix">
-          <slot name="matrix"></slot>
+          <slot name="matrix" .foo=${42 * 2}></slot>
         </div>
       </div>
     `;
@@ -106,109 +237,46 @@ export class PanCake extends LitElement {
   }
 
   private get renderingScale() {
-    return this.scale * this.naturalScale;
+    return this._scale * this.naturalScale;
   }
   private get renderingTranslateX() {
-    return this.offsetLeft + this.translateX;
+    return this.offsetLeft + this._translateX;
   }
   private get renderingTranslateY() {
-    return this.offsetTop + this.translateY;
+    return this.offsetTop + this._translateY;
   }
   private get renderingRotate() {
-    return this.rotate;
-  }
-  static clientCoordsToWrapperCoords(clientX: number, clientY: number, wrapperInnerX: number, wrapperInnerY: number) {
-    return [clientX - wrapperInnerX, clientY - wrapperInnerY] as [number, number];
+    return this._rotate;
   }
   clientCoordsToWrapperCoords(clientX: number, clientY: number) {
-    return PanCake.clientCoordsToWrapperCoords(clientX, clientY, this.wrapperInnerX, this.wrapperInnerY);
-  }
-  static relativeWrapperCoordinatesFromClientCoords(clientX: number, clientY: number, wrapperInnerX: number, wrapperInnerY: number, wrapperInnerWidth: number, wrapperInnerHeight: number) {
-    const [x, y] = PanCake.clientCoordsToWrapperCoords(clientX, clientY, wrapperInnerX, wrapperInnerY);
-    return [x / wrapperInnerWidth, y / wrapperInnerHeight] as [number, number];
+    return clientCoordsToWrapperCoords(clientX, clientY, this.wrapperInnerX, this.wrapperInnerY);
   }
   relativeWrapperCoordinatesFromClientCoords(clientX: number, clientY: number) {
-    return PanCake.relativeWrapperCoordinatesFromClientCoords(clientX, clientY, this.wrapperInnerX, this.wrapperInnerY, this.wrapperInnerWidth, this.wrapperInnerHeight);
-  }
-  static getCanvasCoords(x: number, y: number, canvasWidth: number, canvasHeight: number, translateX: number, translateY: number, rotate: number, scale: number) {
-    // Anchor is relative wrapper inner 0,0
-    const anchor = [0, 0] as [number, number];
-    // Untranslate the point
-    const untranslatedPoint = [x - translateX, y - translateY] as [number, number];
-    // Unrotate the point
-    const unrotatedPoint = rotatePoint(untranslatedPoint, anchor, -rotate);
-    // Unscale the point
-    const unscaledPoint = [unrotatedPoint[0] / scale, unrotatedPoint[1] / scale];
-    // Return the point relative to the canvas natural size
-    const pointRel = [unscaledPoint[0] / canvasWidth, unscaledPoint[1] / canvasHeight] as [number, number];
-    return pointRel;
+    return relativeWrapperCoordinatesFromClientCoords(clientX, clientY, this.wrapperInnerX, this.wrapperInnerY, this.wrapperInnerWidth, this.wrapperInnerHeight);
   }
   getCanvasCoords(x: number, y: number) {
-    return PanCake.getCanvasCoords(x, y, this.width, this.height, this.translateX, this.translateY, this.rotate, this.renderingScale);
-  }
-  static normalizeMatrixCoordinates(clientX: number, clientY: number, wrapperInnerX: number, wrapperInnerY: number, canvasWidth: number, canvasHeight: number, translateX: number, translateY: number, rotate: number, scale: number) {
-    const innerWrapperCoords = PanCake.clientCoordsToWrapperCoords(clientX, clientY, wrapperInnerX, wrapperInnerY);
-    return PanCake.getCanvasCoords(innerWrapperCoords[0], innerWrapperCoords[1], canvasWidth, canvasHeight, translateX, translateY, rotate, scale);
+    return getCanvasCoords(x, y, this.width, this.height, this._translateX, this._translateY, this._rotate, this.renderingScale);
   }
   normalizeMatrixCoordinates(clientX: number, clientY: number) {
     const innerWrapperCoords = this.clientCoordsToWrapperCoords(clientX, clientY);
     return this.getCanvasCoords(innerWrapperCoords[0], innerWrapperCoords[1]);
   }
-  static composePoint(x: number, y: number, currScale: number, currTranslate: [number, number], currRotate: number, canvasWidth: number, canvasHeight: number, offset: { left: number; top: number; right: number; bottom: number }, naturalScale: number) {
-    // Anchor is 0, 0
-    const anchor = [offset.left, offset.left] as [number, number];
-    // Scale the point
-    const scaledPoint = [offset.left + canvasWidth * (currScale * naturalScale) * x, offset.top + canvasHeight * (currScale * naturalScale) * y] as [number, number];
-    // Rotate around the anchor
-    const rotatedPoint = rotatePoint(scaledPoint, anchor, currRotate);
-    // Translate straightforward
-    const translatedPoint = [rotatedPoint[0] + currTranslate[0], rotatedPoint[1] + currTranslate[1]] as [number, number];
-
-    return translatedPoint;
-  }
   composePoint(x: number, y: number, currScale?: number, currTranslate?: [number, number], currRotate?: number) {
-    return PanCake.composePoint(
+    return composePoint(
       x,
       y,
-      currScale ?? this.scale,
-      currTranslate ?? [this.translateX, this.translateY],
-      currRotate ?? this.rotate,
+      currScale ?? this._scale,
+      currTranslate ?? [this._translateX, this._translateY],
+      currRotate ?? this._rotate,
       this.width,
       this.height,
       { left: this.offsetLeft, top: this.offsetTop, right: this.offsetRight, bottom: this.offsetBottom },
       this.naturalScale
     );
   }
-  static calcProjectionTranslate(
-    newScale: number,
-    wrapperPosition: [number, number],
-    canvasPosition: [number, number],
-    canvasWidth: number,
-    canvasHeight: number,
-    wrapperInnerWidth: number,
-    wrapperInnerHeight: number,
-    naturalScale: number,
-    rotate: number
-  ) {
-    // Calculate the intrinsic dimensions of the canvas
-    const canvasIntrinsicWidth = canvasWidth * naturalScale;
-    const canvasIntrinsicHeight = canvasHeight * naturalScale;
-    // Calculate the real dimensions of the canvas
-    const canvasRealX = canvasPosition[0] * canvasIntrinsicWidth * newScale;
-    const canvasRealY = canvasPosition[1] * canvasIntrinsicHeight * newScale;
-    const canvsRealRotated = rotatePoint([canvasRealX, canvasRealY], [0, 0], rotate);
-    // Calculate the real dimensions of the wrapper
-    const wrapperRealX = wrapperPosition[0] * wrapperInnerWidth;
-    const wrapperRealY = wrapperPosition[1] * wrapperInnerHeight;
-    // Calculate the delta between the canvas and the wrapper
-    const deltaX = wrapperRealX - canvsRealRotated[0];
-    const deltaY = wrapperRealY - canvsRealRotated[1];
-
-    return [deltaX, deltaY] as [number, number];
-  }
   // Helper function that calculates the translation needed to map a point on the canvas to a point on the wrapper
   calcProjectionTranslate(newScale: number, wrapperPosition: [number, number], canvasPosition: [number, number], virtualRotate?: number) {
-    return PanCake.calcProjectionTranslate(newScale, wrapperPosition, canvasPosition, this.width, this.height, this.wrapperInnerWidth, this.wrapperInnerHeight, this.naturalScale, virtualRotate ?? this.rotate);
+    return calcProjectionTranslate(newScale, wrapperPosition, canvasPosition, this.width, this.height, this.wrapperInnerWidth, this.wrapperInnerHeight, this.naturalScale, virtualRotate ?? this._rotate);
   }
 
   getCenterOffset(scale: number, translate: [number, number], rotate: number) {
@@ -222,60 +290,63 @@ export class PanCake extends LitElement {
     return [diffX, diffY];
   }
 
-  rotateCanvas(x: number, y: number, radians: number) {
+  public rotateCanvas(x: number, y: number, radians: number) {
     const newRotate = radians;
-    const offset = this.getCenterOffset(this.scale, [0, 0], newRotate);
+    const offset = this.getCenterOffset(this._scale, [0, 0], newRotate);
     const centeredTranslate = [0 - offset[0], 0 - offset[1]] as [number, number];
-    const centeredScale = this.scale;
+    const centeredScale = this._scale;
     const centeredRotate = newRotate;
     const virtualPoint = this.composePoint(x, y, centeredScale, centeredTranslate, centeredRotate);
     const currPoint = this.composePoint(x, y);
     const deltaX = currPoint[0] - virtualPoint[0];
     const deltaY = currPoint[1] - virtualPoint[1];
-    this.translateX = centeredTranslate[0] + deltaX;
-    this.translateY = centeredTranslate[1] + deltaY;
-    this.rotate = newRotate;
+    this._translateX = centeredTranslate[0] + deltaX;
+    this._translateY = centeredTranslate[1] + deltaY;
+    this._rotate = newRotate;
   }
 
   constructor() {
     super();
-    setTimeout(() => {
-      this.scale = 0.5;
-    }, 5000);
+    // setTimeout(() => {
+    //   this._scale = 0.5;
+    // }, 5000);
   }
-  handleWheel(deltaX: number, deltaY: number, ctrlKey: boolean, clientX: number, clientY: number) {
-    const currScale = this.scale;
+  handleWheel(event: WheelEvent) {
+    const { deltaX, deltaY, ctrlKey, clientX, clientY } = event;
+    const currScale = this._scale;
     if (ctrlKey) {
       const scaleDelta = (-deltaY / 100) * currScale;
       const newScale = clamp(currScale + scaleDelta, this.minScale, this.maxScale);
 
       const [translateX, translateY] = this.calcProjectionTranslate(newScale, this.relativeWrapperCoordinatesFromClientCoords(clientX, clientY), this.normalizeMatrixCoordinates(clientX, clientY));
 
-      this.translateX = translateX;
-      this.translateY = translateY;
-      this.scale = newScale;
+      this._translateX = translateX;
+      this._translateY = translateY;
+      this._scale = newScale;
     } else {
-      this.translateX = this.translateX - deltaX;
-      this.translateY = this.translateY - deltaY;
+      this._translateX = this._translateX - deltaX;
+      this._translateY = this._translateY - deltaY;
     }
+    event.preventDefault();
+    event.stopPropagation();
   }
   private gestureStartRotation = 0;
-  handleGesturestart() {
-    this.gestureStartRotation = this.rotate;
+  handleGesturestart(event: any) {
+    this.gestureStartRotation = this._rotate;
   }
-  handleGesturechange(rotation: number, clientX: number, clientY: number) {
+  handleGesturechange(event: any) {
     if (this.allowRotation === false) {
       return;
     }
-    const currRotation = rotation;
+    const currRotation = event.rotation as number;
     if (currRotation === 0) {
       return;
     }
 
-    const relPos = this.normalizeMatrixCoordinates(clientX, clientY);
+    const relPos = this.normalizeMatrixCoordinates(event.clientX, event.clientY);
     this.rotateCanvas(relPos[0], relPos[1], this.gestureStartRotation + degreeToRadians(currRotation));
   }
-  handleGestureend() {
+  handleGestureend(event: any) {
     // void
   }
   private touchStarts:
@@ -299,9 +370,9 @@ export class PanCake extends LitElement {
   handleTouchstart(event: TouchEvent) {
     event.preventDefault();
     this.touchStarts = this.freezeTouches(event.touches);
-    this.touchStartScale = this.scale;
-    this.touchStartTranslate = [this.translateX, this.translateY];
-    this.touchStartRotate = this.rotate;
+    this.touchStartScale = this._scale;
+    this.touchStartTranslate = [this._translateX, this._translateY];
+    this.touchStartRotate = this._rotate;
   }
   handleTouchmove(event: TouchEvent) {
     event.preventDefault();
@@ -345,6 +416,7 @@ export class PanCake extends LitElement {
         if (this.allowRotation) {
           // Angle between the two fingers at the start
           const startAngle = getAngleBetweenTwoPoints(fingerOneStartCanvasCoords, fingerTwoStartCanvasCoords);
+
           // Angle between the first finger at the start and the second finger at the current position
           // we're doing this because we're projecting always from the first finger, so it's the anchor point
           const newAngle = getAngleBetweenTwoPoints(touchPositions[0] as [number, number], touchPositions[1] as [number, number]);
@@ -369,10 +441,10 @@ export class PanCake extends LitElement {
         }
 
         // Set the new values
-        this.scale = futureScale;
-        this.rotate = deltaAngle;
-        this.translateX = scaleDeltaX + rotationDeltaX;
-        this.translateY = scaleDeltaY + rotationDeltaY;
+        this._scale = futureScale;
+        this._rotate = deltaAngle;
+        this._translateX = scaleDeltaX + rotationDeltaX;
+        this._translateY = scaleDeltaY + rotationDeltaY;
       } else {
         // Single finger touch implementation
         const deltaX = event.touches[0].clientX - this.touchStarts[0].client[0];
@@ -380,41 +452,39 @@ export class PanCake extends LitElement {
 
         const futureTranslate = [this.touchStartTranslate[0] + deltaX, this.touchStartTranslate[1] + deltaY];
         // Set the new values
-        this.translateX = futureTranslate[0];
-        this.translateY = futureTranslate[1];
+        this._translateX = futureTranslate[0];
+        this._translateY = futureTranslate[1];
       }
     }
   }
   handleTouchend(event: TouchEvent) {
-    event.preventDefault();
+    //event.preventDefault();
 
     if (event.touches.length === 0) {
       this.touchStarts = null;
     } else {
       this.touchStarts = this.freezeTouches(event.touches);
-      this.touchStartScale = this.scale;
-      this.touchStartTranslate = [this.translateX, this.translateX];
-      this.touchStartRotate = this.rotate;
+      this.touchStartScale = this._scale;
+      this.touchStartTranslate = [this._translateX, this._translateX];
+      this.touchStartRotate = this._rotate;
     }
   }
   connectedCallback() {
     super.connectedCallback();
 
     this.addEventListener('wheel', (event) => {
-      this.handleWheel(event.deltaX, event.deltaY, event.ctrlKey, event.clientX, event.clientY);
-      event.preventDefault();
-      event.stopPropagation();
+      this.handleWheel(event);
     });
 
-    // this.addEventListener('gesturestart', (event) => {
-    //   this.handleGesturestart();
-    // });
-    // window.addEventListener('gesturechange', (event) => {
-    //   this.handleGesturechange((event as any).rotation, (event as any).clientX, (event as any).clientY);
-    // });
-    // window.addEventListener('gestureend', (event) => {
-    //   this.handleGestureend();
-    // });
+    this.addEventListener('gesturestart', (event) => {
+      this.handleGesturestart(event);
+    });
+    window.addEventListener('gesturechange', (event) => {
+      this.handleGesturechange(event);
+    });
+    window.addEventListener('gestureend', (event) => {
+      this.handleGestureend(event);
+    });
 
     this.addEventListener('touchstart', (event) => {
       this.handleTouchstart(event);
@@ -425,10 +495,6 @@ export class PanCake extends LitElement {
     window.addEventListener('touchend', (event) => {
       this.handleTouchend(event);
     });
-  }
-  requestUpdate() {
-    super.requestUpdate();
-    //console.log('update');
   }
 }
 

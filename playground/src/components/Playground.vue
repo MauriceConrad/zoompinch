@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="playground">
     <header>
       <section>
@@ -245,11 +245,17 @@ onMounted(() => {
 
     &.small {
       grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      @media screen and (max-width: 700px) {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+      }
     }
     .field {
       .description {
         font-size: 0.9em;
         opacity: 0.7;
+        @media screen and (max-width: 700px) {
+          font-size: 0.7em;
+        }
       }
       .n-input-number {
         ::v-deep(.n-input__suffix) {
@@ -270,5 +276,36 @@ onMounted(() => {
       height: 100%;
     }
   }
+}
+</style> -->
+
+<template>
+  <div class="my-container">
+    <zoompinch
+      :width="536"
+      :height="802"
+      :bounds="false"
+      :rotation="true"
+      :offset="{ left: 0, top: 0, bottom: 0, right: 0 }"
+      :min-scale="0.1"
+      :max-scale="10"
+    >
+      <template #canvas>
+        <img src="https://creactive-media.de/images/gallery/DSC05518.jpeg" style="width: 536px; height: 802px" />
+      </template>
+    </zoompinch>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { Zoompinch } from 'zoompinch';
+import 'zoompinch/style.css';
+</script>
+
+<style scoped lang="scss">
+.my-container {
+  width: 100%;
+  height: 500px;
+  background-color: #eee;
 }
 </style>

@@ -66,6 +66,8 @@ export function useTouch({
     touchStartScale = scale.value;
     touchStartTranslate = [translate.value[0], translate.value[1]];
     touchStartRotate = rotate.value;
+
+    console.log('touchStarts', touchStarts);
   };
 
   const handleTouchmove = (event: TouchEvent) => {
@@ -137,6 +139,8 @@ export function useTouch({
           // Delta angle between the original angle the one that we're projecting
           deltaAngle = newAngle - startAngle;
 
+          console.log('startAngle', startAngle);
+
           // This method will project a point on the canvas using the already known scale and its delta
           function projectPosScaled(x: number, y: number) {
             return [
@@ -168,6 +172,10 @@ export function useTouch({
         scale.value = futureScale;
         rotate.value = deltaAngle;
         translate.value = [scaleDeltaX + rotationDeltaX, scaleDeltaY + rotationDeltaY];
+
+        console.log('scale', scale.value);
+        console.log('rotate', rotate.value);
+        console.log('translate', translate.value[0], translate.value[1]);
       } else {
         // Single finger touch implementation
         const deltaX = event.touches[0].clientX - touchStarts[0].client[0];

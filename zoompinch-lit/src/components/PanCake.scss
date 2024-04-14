@@ -22,4 +22,9 @@
     transform-origin: 0% 0%;
     transform: translate(var(--translate-x), var(--translate-y)) scale(var(--scale)) rotate(var(--rotate));
   }
+  .matrix {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 }

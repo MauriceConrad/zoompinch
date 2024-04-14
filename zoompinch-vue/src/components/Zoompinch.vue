@@ -166,12 +166,12 @@ watch(
   { deep: true }
 );
 onMounted(() => {
-  exposedTransform.value = {
-    x: props.transform.x,
-    y: props.transform.y,
-    scale: props.transform.scale,
-    rotate: props.transform.rotate,
-  };
+  // exposedTransform.value = {
+  //   x: props.transform.x,
+  //   y: props.transform.y,
+  //   scale: props.transform.scale,
+  //   rotate: props.transform.rotate,
+  // };
 });
 
 const wheelProxy = (event: WheelEvent) => {

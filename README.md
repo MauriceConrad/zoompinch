@@ -1,5 +1,23 @@
 ## Zoompinch
 
+Apply a pinch-and-zoom experience that’s feels native and communicates the transform reactively in both directions.
+
+Play around with the [demo here](https://zoompinch.pages.dev)
+
+### Mathematical correct pinch on touch
+
+Unlike other libraries, _Pinchzoom_ does not just uses the center point between two fingers as projection center. The fingers get correctly projected on the virtual canvas. This makes rotation
+
+### Matrix Layer on top
+
+You can use a matrix layer on top that projects any virtual point within the canvas to the real absolute coordinates.
+
+### Currently supported platforms:
+
+- [x] Vue 3
+- [ ] Web components (work in progress)
+- [ ] React
+
 ### Install
 
 ```bash
@@ -70,18 +88,6 @@ function handleClickOnLayer(event: MouseEvent) {
 - `touch`: Boolean value, wether touch events will be connected
 - `wheel`: Boolean value wether wheel events will be connected
 - `gesture`: Boolean value, wether gesture events will be connected
-
-## Scale, Move and Rotate
-
-Apply a pinch-and-zoom experience that’s feels native and communicates the transform reactively in both directions.
-
-## Mathematical correct pinch on touch
-
-Unlike other libraries, _Pinchzoom_ does not just uses the center point between two fingers as projection center. The fingers get correctly projected on the virtual canvas. This makes rotation
-
-## Matrix Layer on top
-
-You can use a matrix layer on top that projects any virtual point within the canvas to the real absolute coordinates.
 
 ## Helper functions
 
