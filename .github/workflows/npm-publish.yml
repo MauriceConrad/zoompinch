@@ -42,6 +42,8 @@ jobs:
     needs: publish-npm
     env:
       CLOUDFLARE_PROJECT_NAME: zoompinch
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
