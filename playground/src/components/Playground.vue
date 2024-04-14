@@ -213,7 +213,6 @@ onMounted(() => {
     border-radius: 10px;
     padding: 20px;
     display: grid;
-    display: none;
     flex: none;
     box-sizing: border-box;
     gap: 20px;
