@@ -102,14 +102,7 @@
       </section>
       <section>
         <n-button
-          @click="
-            transform = {
-              x: 0,
-              y: 0,
-              scale: 1,
-              rotate: 0,
-            }
-          "
+          @click="fit(true)"
           :disabled="transform.rotate === 0 && transform.scale === 1 && transform.x === 0 && transform.y === 0"
           type="success"
           style="width: 100%"
@@ -141,9 +134,9 @@
           />
         </template>
         <template #matrix="{ compose }">
-          <!-- <svg xmlns="http://www.w3.org/2000/svg" @click="handleClickOnLayer">
+          <svg xmlns="http://www.w3.org/2000/svg" @click="handleClickOnLayer">
             <circle :cx="compose(1536 / 2, 2048 / 2)[0]" :cy="compose(1536 / 2, 2048 / 2)[1]" r="5" style="fill: #f00" />
-          </svg> -->
+          </svg>
         </template>
       </zoompinch>
     </div>
@@ -153,7 +146,7 @@
 <script setup lang="ts">
 import { Zoompinch } from 'zoompinch';
 import 'zoompinch/style.css';
-import { reactive, ref, watch, watchEffect } from 'vue';
+import { onMounted, reactive, ref, watch, watchEffect } from 'vue';
 import { NInputNumber, NSwitch, NButton } from 'naive-ui';
 
 // Flicker bug reproducable: 100,0,0.1,180
@@ -194,6 +187,12 @@ function handleClickOnLayer(event: MouseEvent) {
   console.log('clicked at', x, y);
   alert(`clicked at ${x}, ${y}`);
 }
+function fit(animate: boolean) {
+  zoompinchRef.value?.applyTransform(1, [0.5, 0.5], [0.5, 0.5], animate);
+}
+onMounted(() => {
+  setTimeout(() => fit(true));
+});
 </script>
 
 <style scoped lang="scss">

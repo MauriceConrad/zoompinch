@@ -12,7 +12,7 @@
     "@vicons/ionicons5": "^0.12.0",
     "naive-ui": "^2.38.1",
     "vue": "^3.2.37",
-    "zoompinch": "^0.0.7"
+    "zoompinch": "^0.0.18"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
