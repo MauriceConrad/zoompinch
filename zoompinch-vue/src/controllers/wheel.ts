@@ -12,6 +12,14 @@ export function detectTrackpad(event: WheelEvent) {
   }
   return isTrackpad;
 }
+export function isMultipleOf(n: number, multiples: number[]) {
+  const factor = multiples.find((m) => n % m === 0);
+  if (factor) {
+    return n / factor;
+  } else {
+    return n;
+  }
+}
 
 export function useWheel({
   scale,
@@ -36,11 +44,15 @@ export function useWheel({
 }) {
   function handleWheel(event: WheelEvent) {
     let { deltaX, deltaY, ctrlKey } = event;
-    if (Math.abs(deltaX) === 100 || Math.abs(deltaY) === 200) {
-      deltaX = deltaX / 25;
+    const mouseMultiples = [120, 100];
+    const mouseFactor = 4;
+    if (Math.abs(deltaX)) {
     }
-    if (Math.abs(deltaY) === 100 || Math.abs(deltaY) === 200) {
-      deltaY = deltaY / 25;
+    if (isMultipleOf(deltaX, mouseMultiples)) {
+      deltaX = deltaX / ((100 / mouseFactor) * isMultipleOf(deltaX, mouseMultiples));
+    }
+    if (isMultipleOf(deltaY, mouseMultiples)) {
+      deltaY = deltaY / ((100 / mouseFactor) * isMultipleOf(deltaY, mouseMultiples));
     }
     const currScale = scale.value;
     if (ctrlKey) {
