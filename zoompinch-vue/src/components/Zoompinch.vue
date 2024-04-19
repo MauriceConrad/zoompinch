@@ -50,6 +50,7 @@
 import { useZoom } from '../controllers/zoom';
 import { ref, defineProps, toRef, computed, onMounted, watch, toRefs, onUnmounted, reactive } from 'vue';
 import { radiansToDegrees } from '../controllers/helpers';
+import { detectTrackpad } from '../controllers/wheel';
 
 export type Transform = {
   x: number;
@@ -180,6 +181,8 @@ onMounted(() => {
 
 const wheelProxy = (event: WheelEvent) => {
   if (props.wheel) {
+    const isTrackpad = detectTrackpad(event);
+    console.log('isTrackpad', isTrackpad);
     handleWheel(event);
   }
 };

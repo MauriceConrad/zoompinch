@@ -1,6 +1,18 @@
 import { Ref } from 'vue';
 import { clamp } from './helpers';
 
+export function detectTrackpad(event: WheelEvent) {
+  var isTrackpad = false;
+  if ((event as any).wheelDeltaY) {
+    if ((event as any).wheelDeltaY === event.deltaY * -3) {
+      isTrackpad = true;
+    }
+  } else if (event.deltaMode === 0) {
+    isTrackpad = true;
+  }
+  return isTrackpad;
+}
+
 export function useWheel({
   scale,
   translate,
