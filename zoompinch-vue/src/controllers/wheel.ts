@@ -35,7 +35,13 @@ export function useWheel({
   ) => [number, number];
 }) {
   function handleWheel(event: WheelEvent) {
-    const { deltaX, deltaY, ctrlKey } = event;
+    let { deltaX, deltaY, ctrlKey } = event;
+    if (Math.abs(deltaX) === 100 || Math.abs(deltaY) === 200) {
+      deltaX = deltaX / 25;
+    }
+    if (Math.abs(deltaY) === 100 || Math.abs(deltaY) === 200) {
+      deltaY = deltaY / 25;
+    }
     const currScale = scale.value;
     if (ctrlKey) {
       const scaleDelta = (-deltaY / 100) * currScale;

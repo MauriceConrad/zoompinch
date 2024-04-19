@@ -53,9 +53,9 @@ jobs:
       - name: test installed version
         run: cat package.json | grep -e '"zoompinch":'
         working-directory: playground
-      - name: Install wrangler
-        run: npm install --save-dev wrangler@latest
-        working-directory: playground
+      # - name: Install wrangler
+      #   run: npm install --save-dev wrangler@latest
+      #   working-directory: playground
       - name: Build playground
         run: npm run build
         working-directory: playground
