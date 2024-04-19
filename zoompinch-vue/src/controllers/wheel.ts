@@ -46,13 +46,13 @@ export function useWheel({
     let { deltaX, deltaY, ctrlKey } = event;
     const mouseMultiples = [120, 100];
     const mouseFactor = 4;
-    if (Math.abs(deltaX)) {
-    }
-    if (isMultipleOf(deltaX, mouseMultiples)) {
-      deltaX = (deltaX / ((100 / mouseFactor) * isMultipleOf(deltaX, mouseMultiples))) * Math.sign(deltaX);
-    }
-    if (isMultipleOf(deltaY, mouseMultiples)) {
-      deltaY = (deltaY / ((100 / mouseFactor) * isMultipleOf(deltaY, mouseMultiples))) * Math.sign(deltaY);
+    if (!detectTrackpad(event)) {
+      if (Math.abs(deltaX) === 120 || Math.abs(deltaX) === 200) {
+        deltaX = (deltaX / ((100 / mouseFactor) * isMultipleOf(deltaX, mouseMultiples))) * Math.sign(deltaX);
+      }
+      if (Math.abs(deltaY) === 120 || Math.abs(deltaY) === 200) {
+        deltaY = (deltaY / ((100 / mouseFactor) * isMultipleOf(deltaY, mouseMultiples))) * Math.sign(deltaY);
+      }
     }
     const currScale = scale.value;
     if (ctrlKey) {

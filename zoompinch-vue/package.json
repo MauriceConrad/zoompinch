@@ -1,7 +1,7 @@
 {
   "name": "zoompinch",
   "private": false,
-  "version": "0.0.32",
+  "version": "0.0.33",
   "type": "module",
   "files": [
     "package.json",
