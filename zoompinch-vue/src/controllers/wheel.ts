@@ -17,7 +17,7 @@ export function isMultipleOf(n: number, multiples: number[]) {
   if (factor) {
     return n / factor;
   } else {
-    return n;
+    return 1;
   }
 }
 
@@ -49,10 +49,10 @@ export function useWheel({
     if (Math.abs(deltaX)) {
     }
     if (isMultipleOf(deltaX, mouseMultiples)) {
-      deltaX = deltaX / ((100 / mouseFactor) * isMultipleOf(deltaX, mouseMultiples));
+      deltaX = (deltaX / ((100 / mouseFactor) * isMultipleOf(deltaX, mouseMultiples))) * Math.sign(deltaX);
     }
     if (isMultipleOf(deltaY, mouseMultiples)) {
-      deltaY = deltaY / ((100 / mouseFactor) * isMultipleOf(deltaY, mouseMultiples));
+      deltaY = (deltaY / ((100 / mouseFactor) * isMultipleOf(deltaY, mouseMultiples))) * Math.sign(deltaY);
     }
     const currScale = scale.value;
     if (ctrlKey) {
