@@ -311,6 +311,7 @@ defineExpose({
     top: 0px;
     position: absolute;
     width: 100%;
+    pointer-events: none;
     height: 100%;
     > ::v-deep(*) {
       width: 100%;

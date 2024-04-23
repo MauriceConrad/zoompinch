@@ -61,16 +61,25 @@ export function useTouch({
   };
 
   const handleTouchstart = (event: TouchEvent) => {
+    const isWithinMatrix = (event.target as HTMLElement).closest('.matrix') !== null;
+    if (isWithinMatrix) {
+      return;
+    }
+
     event.preventDefault();
     touchStarts = freezeTouches(event.touches);
     touchStartScale = scale.value;
     touchStartTranslate = [translate.value[0], translate.value[1]];
     touchStartRotate = rotate.value;
 
-    console.log('touchStarts', touchStarts);
+    //console.log('touchStarts', touchStarts);
   };
 
   const handleTouchmove = (event: TouchEvent) => {
+    const isWithinMatrix = (event.target as HTMLElement).closest('.matrix') !== null;
+    if (isWithinMatrix) {
+      return;
+    }
     event.preventDefault(); // Prevent default touch behavior
 
     if (touchStarts) {
@@ -187,7 +196,10 @@ export function useTouch({
     }
   };
   const handleTouchend = (event: TouchEvent) => {
-    //event.preventDefault();
+    const isWithinMatrix = (event.target as HTMLElement).closest('.matrix') !== null;
+    if (isWithinMatrix) {
+      return;
+    }
 
     if (event.touches.length === 0) {
       touchStarts = null;
