@@ -1,7 +1,7 @@
 {
   "name": "zoompinch",
   "private": false,
-  "version": "0.0.35",
+  "version": "0.0.36",
   "type": "module",
   "files": [
     "package.json",
@@ -20,6 +20,11 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "npm link && npm-watch build",
     "preview": "vite preview"
+  },
+  "homepage": "https://zoompinch.pages.dev/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MauriceConrad/zoompinch"
   },
   "watch": {
     "build": {
