@@ -272,6 +272,8 @@ defineExpose({
   calcProjectionTranslate,
   rotateCanvas,
   wrapperBounds,
+  canvas: canvasRef,
+  matrix: matrixRef,
 });
 </script>
 
