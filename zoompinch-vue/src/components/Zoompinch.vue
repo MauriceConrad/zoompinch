@@ -28,13 +28,6 @@
       <slot name="canvas" />
     </div>
     <div ref="matrixRef" class="matrix">
-      <!-- <div class="offset-rect"></div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <circle :cx="composePoint(0, 0)[0]" :cy="composePoint(0, 0)[1]" r="5" />
-        <circle :cx="composePoint(1, 0)[0]" :cy="composePoint(1, 0)[1]" r="5" />
-        <circle :cx="composePoint(1, 1)[0]" :cy="composePoint(1, 1)[1]" r="5" />
-        <circle :cx="composePoint(0, 1)[0]" :cy="composePoint(0, 1)[1]" r="5" />
-      </svg> -->
       <slot
         name="matrix"
         :compose-point="composePoint"

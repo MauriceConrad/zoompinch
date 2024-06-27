@@ -82,13 +82,11 @@ export function useTouch({
     }
     event.preventDefault(); // Prevent default touch behavior
 
-    if (touchStarts) {
-      // Make the touch positions become relative to the inner wrapper
-      const touchPositions = Array.from(event.touches).map((touch) =>
-        clientCoordsToWrapperCoords(touch.clientX, touch.clientY)
-      );
+    // Make the touch positions become relative to the inner wrapper
+    const touchPositions = Array.from(event.touches).map((touch) => clientCoordsToWrapperCoords(touch.clientX, touch.clientY));
 
-      if (touchPositions.length >= 2) {
+    if (touchStarts) {
+      if (touchPositions.length >= 2 && touchStarts.length >= 2) {
         // Multi finger touch implementation
         // We're calculating:
         // 1. The scale projection and scale relied delta

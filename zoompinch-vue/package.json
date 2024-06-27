@@ -1,12 +1,13 @@
 {
   "name": "zoompinch",
   "private": false,
-  "version": "0.0.37",
+  "version": "0.0.38",
   "type": "module",
   "files": [
     "package.json",
     "lib"
   ],
+  "license": "MIT",
   "exports": {
     ".": {
       "import": "./lib/zoompinch.es.js",
