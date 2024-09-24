@@ -174,8 +174,6 @@ onMounted(() => {
 
 const wheelProxy = (event: WheelEvent) => {
   if (props.wheel) {
-    const isTrackpad = detectTrackpad(event);
-    console.log('isTrackpad', isTrackpad);
     handleWheel(event);
   }
 };
