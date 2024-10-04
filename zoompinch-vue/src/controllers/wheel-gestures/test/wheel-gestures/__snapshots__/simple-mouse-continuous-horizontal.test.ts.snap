@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`simple mouse - continuous horizontal wheel Mac Chrome 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -881.3275146484375,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -1.9548461698762425,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -226.881103515625,
+        "deltaY": 0,
+        "timeStamp": 4498.224999995728,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        8,
+      ],
+      "wheelType": "user",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Mac FF 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -468,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.8977556109725686,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 1,
+        "deltaX": -6,
+        "deltaY": 0,
+        "timeStamp": 3668,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        8,
+      ],
+      "wheelType": "user",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Mac Safari 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -829.88525390625,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -1.9534027099609375,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -175.9234619140625,
+        "deltaY": 0,
+        "timeStamp": 4044.0000000000005,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        8,
+      ],
+      "wheelType": "user",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Windows Chrome 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -900,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -1.4989881830374567,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -150,
+        "deltaY": 0,
+        "timeStamp": 2919.8799999430776,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        5,
+      ],
+      "wheelType": "user",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Windows Edge 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -2342.5501708984375,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -3.282129479414435,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -334.6500244140625,
+        "deltaY": 0,
+        "timeStamp": 3153.7650000536814,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        6,
+      ],
+      "wheelType": "user",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Windows FF 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -54,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.135,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 1,
+        "deltaX": -3,
+        "deltaY": 0,
+        "timeStamp": 2428,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        0,
+      ],
+      "wheelType": "user",
+    },
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -1296,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.5524296675191815,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 1,
+        "deltaX": -3,
+        "deltaY": 0,
+        "timeStamp": 5131,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        1,
+        24,
+      ],
+      "wheelType": "user",
+    },
+  ],
+}
+`;

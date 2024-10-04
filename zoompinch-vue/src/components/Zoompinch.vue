@@ -43,7 +43,8 @@
 import { useZoom } from '../controllers/zoom';
 import { ref, defineProps, toRef, computed, onMounted, watch, toRefs, onUnmounted, reactive } from 'vue';
 import { radiansToDegrees } from '../controllers/helpers';
-import { detectTrackpad } from '../controllers/wheel';
+// import { detectTrackpad } from '../controllers/wheel';
+import { WheelEventState, WheelGestures } from '../controllers/wheel-gestures';
 
 export type Transform = {
   x: number;
@@ -87,6 +88,8 @@ const props = withDefaults(
 );
 const emit = defineEmits<{
   'update:transform': [transform: Transform];
+  dragGestureStart: [];
+  dragGestureEnd: [];
 }>();
 
 const zoompinchRef = ref<HTMLElement>();
@@ -172,15 +175,37 @@ onMounted(() => {
   // };
 });
 
+const wheelGestures = WheelGestures();
+wheelGestures.on('wheel', (wheelEventState) => {
+  if (props.wheel) {
+    if (wheelEventState.isStart) {
+      emit('dragGestureStart');
+    }
+    handleWheel(wheelEventState.event as any);
+    if (wheelEventState.isEnding) {
+      emit('dragGestureEnd');
+    }
+  }
+});
+onMounted(() => {
+  if (zoompinchRef.value) {
+    wheelGestures.observe(zoompinchRef.value);
+  }
+});
+onUnmounted(() => {
+  wheelGestures.disconnect();
+});
+
 const wheelProxy = (event: WheelEvent) => {
   if (props.wheel) {
-    const isTrackpad = detectTrackpad(event);
-    console.log('isTrackpad', isTrackpad);
-    handleWheel(event);
+    // const isTrackpad = detectTrackpad(event);
+    // console.log('isTrackpad', isTrackpad);
+    // handleWheel(event);
   }
 };
 const touchstartProxy = (event: TouchEvent) => {
   if (props.touch) {
+    emit('dragGestureStart');
     handleTouchstart(event);
   }
 };
@@ -192,10 +217,12 @@ const touchmoveProxy = (event: TouchEvent) => {
 const touchendProxy = (event: TouchEvent) => {
   if (props.touch) {
     handleTouchend(event);
+    emit('dragGestureEnd');
   }
 };
 const mousedownProxy = (event: MouseEvent) => {
   if (props.mouse) {
+    emit('dragGestureStart');
     handleMousedown(event);
   }
 };
@@ -207,6 +234,7 @@ const mousemoveProxy = (event: MouseEvent) => {
 const mouseupProxy = (event: MouseEvent) => {
   if (props.mouse) {
     handleMouseup(event);
+    emit('dragGestureEnd');
   }
 };
 function isTouchDevice() {

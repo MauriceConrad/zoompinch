@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`negative zero event Win - Chrome - swipe right 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -1810.5,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.027716186256142486,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -1.5,
+        "deltaY": 0,
+        "timeStamp": 5711.669999989681,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        95,
+        95,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`negative zero event Win - Chrome - swipe right fast 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -3631.5,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.032752879522086574,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -1.5,
+        "deltaY": 0,
+        "timeStamp": 40598.1900000188,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        107,
+        107,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;

@@ -1,0 +1,389 @@
+{
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
+  "wheelEvents": [
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 1418.4200000017881
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -7,
+      "deltaY": 0,
+      "timeStamp": 1429.3850000103703
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -8,
+      "deltaY": 0,
+      "timeStamp": 1440.7050000008894
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -11,
+      "deltaY": 0,
+      "timeStamp": 1451.8700000044191
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -24,
+      "deltaY": 0,
+      "timeStamp": 1463.434999997844
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -12,
+      "deltaY": 0,
+      "timeStamp": 1474.4000000064261
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -29,
+      "deltaY": 0,
+      "timeStamp": 1486.075000007986
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -24,
+      "deltaY": 0,
+      "timeStamp": 1497.0800000010058
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -28,
+      "deltaY": 0,
+      "timeStamp": 1508.0900000029942
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -52,
+      "deltaY": 0,
+      "timeStamp": 1519.5950000052107
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -54,
+      "deltaY": 0,
+      "timeStamp": 1530.9200000046985
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -83,
+      "deltaY": 0,
+      "timeStamp": 1559.785000004922
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -83,
+      "deltaY": 0,
+      "timeStamp": 1575.4250000027241
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -84,
+      "deltaY": 0,
+      "timeStamp": 1593.010000011418
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -84,
+      "deltaY": 0,
+      "timeStamp": 1608.7350000016158
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -82,
+      "deltaY": 0,
+      "timeStamp": 1626.0650000040187
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -82,
+      "deltaY": 0,
+      "timeStamp": 1642.3849999991944
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -75,
+      "deltaY": 0,
+      "timeStamp": 1658.7350000045262
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -72,
+      "deltaY": 0,
+      "timeStamp": 1675.5249999987427
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -67,
+      "deltaY": 0,
+      "timeStamp": 1692.2000000049593
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -59,
+      "deltaY": 0,
+      "timeStamp": 1709.325000003446
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -54,
+      "deltaY": 0,
+      "timeStamp": 1725.5200000072364
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -49,
+      "deltaY": 0,
+      "timeStamp": 1742.0800000109011
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -45,
+      "deltaY": 0,
+      "timeStamp": 1759.9049999989802
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -41,
+      "deltaY": 0,
+      "timeStamp": 1775.405000007595
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -37,
+      "deltaY": 0,
+      "timeStamp": 1792.395000011311
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -33,
+      "deltaY": 0,
+      "timeStamp": 1808.9600000093924
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -30,
+      "deltaY": 0,
+      "timeStamp": 1826.0100000043167
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -29,
+      "deltaY": 0,
+      "timeStamp": 1842.1250000101281
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -26,
+      "deltaY": 0,
+      "timeStamp": 1859.3350000010105
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -23,
+      "deltaY": 0,
+      "timeStamp": 1875.6700000085402
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -23,
+      "deltaY": 0,
+      "timeStamp": 1892.7000000112457
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -20,
+      "deltaY": 0,
+      "timeStamp": 1909.2250000103377
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -18,
+      "deltaY": 0,
+      "timeStamp": 1925.455000004149
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -17,
+      "deltaY": 0,
+      "timeStamp": 1942.1050000091782
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -15,
+      "deltaY": 0,
+      "timeStamp": 1959.340000001248
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -15,
+      "deltaY": 0,
+      "timeStamp": 1975.41500000807
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -13,
+      "deltaY": 0,
+      "timeStamp": 1992.7600000082748
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -13,
+      "deltaY": 0,
+      "timeStamp": 2008.7700000003679
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -11,
+      "deltaY": 0,
+      "timeStamp": 2025.4750000021886
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -10,
+      "deltaY": 0,
+      "timeStamp": 2042.1250000072177
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -9,
+      "deltaY": 0,
+      "timeStamp": 2059.3300000036834
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -9,
+      "deltaY": 0,
+      "timeStamp": 2075.5500000086613
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -8,
+      "deltaY": 0,
+      "timeStamp": 2092.1850000013364
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -7,
+      "deltaY": 0,
+      "timeStamp": 2108.7850000039907
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -7,
+      "deltaY": 0,
+      "timeStamp": 2125.5200000014156
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -7,
+      "deltaY": 0,
+      "timeStamp": 2142.2350000066217
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -6,
+      "deltaY": 0,
+      "timeStamp": 2159.6950000093784
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -5,
+      "deltaY": 0,
+      "timeStamp": 2175.4599999985658
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -4,
+      "deltaY": 0,
+      "timeStamp": 2192.5950000004377
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -4,
+      "deltaY": 0,
+      "timeStamp": 2208.935000002384
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -4,
+      "deltaY": 0,
+      "timeStamp": 2226.0200000018813
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -3,
+      "deltaY": 0,
+      "timeStamp": 2242.5599999987753
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -3,
+      "deltaY": 0,
+      "timeStamp": 2258.8050000049407
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -3,
+      "deltaY": 0,
+      "timeStamp": 2275.4450000065845
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -2,
+      "deltaY": 0,
+      "timeStamp": 2292.14000000502
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -2,
+      "deltaY": 0,
+      "timeStamp": 2308.805000007851
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -2,
+      "deltaY": 0,
+      "timeStamp": 2326.360000006389
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 2342.08000000217
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 2359.3650000111666
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 2375.815000006696
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 2408.7450000079116
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 2426.115000009304
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -1,
+      "deltaY": 0,
+      "timeStamp": 2458.8000000076136
+    }
+  ]
+}

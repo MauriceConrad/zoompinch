@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`velocity should have velocity in first (and only) event - x 1`] = `
+[
+  {
+    "axisDelta": [
+      0,
+      20,
+      0,
+    ],
+    "axisMovement": [
+      0,
+      20,
+      0,
+    ],
+    "axisMovementProjection": [
+      0,
+      32.44999999999999,
+      0,
+    ],
+    "axisVelocity": [
+      0,
+      0.05,
+      0,
+    ],
+    "event": {
+      "deltaMode": 0,
+      "deltaX": 0,
+      "deltaY": 20,
+      "timeStamp": 0,
+    },
+    "isEnding": false,
+    "isMomentum": false,
+    "isMomentumCancel": false,
+    "isStart": true,
+    "previous": undefined,
+  },
+  {
+    "axisDelta": [
+      0,
+      0,
+      0,
+    ],
+    "axisMovement": [
+      0,
+      20,
+      0,
+    ],
+    "axisMovementProjection": [
+      0,
+      32.44999999999999,
+      0,
+    ],
+    "axisVelocity": [
+      0,
+      0.05,
+      0,
+    ],
+    "event": {
+      "deltaMode": 0,
+      "deltaX": 0,
+      "deltaY": 20,
+      "timeStamp": 0,
+    },
+    "isEnding": true,
+    "isMomentum": false,
+    "isMomentumCancel": false,
+    "isStart": false,
+    "previous": {
+      "axisDelta": [
+        0,
+        20,
+        0,
+      ],
+      "axisMovement": [
+        0,
+        20,
+        0,
+      ],
+      "axisMovementProjection": [
+        0,
+        32.44999999999999,
+        0,
+      ],
+      "axisVelocity": [
+        0,
+        0.05,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": 20,
+        "timeStamp": 0,
+      },
+      "isEnding": false,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": true,
+    },
+  },
+]
+`;

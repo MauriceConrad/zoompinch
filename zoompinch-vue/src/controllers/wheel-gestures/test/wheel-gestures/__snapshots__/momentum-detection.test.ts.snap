@@ -1,0 +1,467 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`momentum detection recognizes double swipe right 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -952,
+        8,
+        0,
+      ],
+      "axisVelocity": [
+        -0.682340725381047,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -2,
+        "deltaY": 0,
+        "timeStamp": 3317.0500000123866,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": true,
+      "isStart": false,
+      "range": [
+        32,
+        33,
+      ],
+      "wheelType": "momentum",
+    },
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -1755,
+        -2,
+        0,
+      ],
+      "axisVelocity": [
+        -0.039928129363731614,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -1,
+        "deltaY": 0,
+        "timeStamp": 4477.8150000202,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        102,
+        102,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe down - fast 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -23,
+        -7290,
+        0,
+      ],
+      "axisVelocity": [
+        0,
+        -0.04081632653061224,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": -1,
+        "timeStamp": 30302,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        95,
+        95,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe down 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        7,
+        -2134,
+        0,
+      ],
+      "axisVelocity": [
+        0,
+        -0.04878048780487805,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": -1,
+        "timeStamp": 7709.000000000001,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        87,
+        87,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left (mouse) - Firefox 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        740,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        0.04,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 1,
+        "deltaY": 0,
+        "timeStamp": 22026,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        54,
+        54,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left - fast 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        9964,
+        -8,
+        0,
+      ],
+      "axisVelocity": [
+        0.039603960396039604,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 1,
+        "deltaY": 0,
+        "timeStamp": 147746,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        100,
+        100,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        3001,
+        -15,
+        0,
+      ],
+      "axisVelocity": [
+        0.04,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 1,
+        "deltaY": 0,
+        "timeStamp": 2925.0000000000005,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        82,
+        82,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe right - fast 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -15,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.03963731853433476,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -1,
+        "deltaY": 0,
+        "timeStamp": 64035.86500001256,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        0,
+        9,
+      ],
+      "wheelType": "user",
+    },
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -12774,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.0400060009027491,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -1,
+        "deltaY": 0,
+        "timeStamp": 65929.5800000109,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        96,
+        96,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe right 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -1634,
+        0,
+        0,
+      ],
+      "axisVelocity": [
+        -0.0398585023158581,
+        0,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": -1,
+        "deltaY": 0,
+        "timeStamp": 2458.8000000076136,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        63,
+        63,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe up - fast 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -38,
+        8065,
+        0,
+      ],
+      "axisVelocity": [
+        0,
+        0.0392156862745098,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": 1,
+        "timeStamp": 103107,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        98,
+        98,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe up 1`] = `
+{
+  "phases": [
+    {
+      "axisDelta": [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": [
+        -70,
+        3836,
+        0,
+      ],
+      "axisVelocity": [
+        0,
+        0.04,
+        0,
+      ],
+      "event": {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": 1,
+        "timeStamp": 87480,
+      },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": true,
+      "isMomentumCancel": false,
+      "isStart": false,
+      "range": [
+        84,
+        84,
+      ],
+      "wheelType": "momentum",
+    },
+  ],
+}
+`;

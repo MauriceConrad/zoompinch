@@ -1,0 +1,59 @@
+{
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15",
+  "wheelEvents": [
+    {
+      "deltaMode": 0,
+      "deltaX": -4.000244140625,
+      "deltaY": 0,
+      "timeStamp": 2948
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -4.000244140625,
+      "deltaY": 0,
+      "timeStamp": 3340
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -16.983642578125,
+      "deltaY": 0,
+      "timeStamp": 3444
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -58.2794189453125,
+      "deltaY": 0,
+      "timeStamp": 3540
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -77.1124267578125,
+      "deltaY": 0,
+      "timeStamp": 3644
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -102.9052734375,
+      "deltaY": 0,
+      "timeStamp": 3740
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -175.8721923828125,
+      "deltaY": 0,
+      "timeStamp": 3844
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -214.808349609375,
+      "deltaY": 0,
+      "timeStamp": 3940
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -175.9234619140625,
+      "deltaY": 0,
+      "timeStamp": 4044.0000000000005
+    }
+  ]
+}

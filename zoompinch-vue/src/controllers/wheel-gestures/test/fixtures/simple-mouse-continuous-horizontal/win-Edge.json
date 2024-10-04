@@ -1,0 +1,47 @@
+{
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 Edg/80.0.361.69",
+  "wheelEvents": [
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 2257.605000049807
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 2657.5949999969453
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 2754.2949999915436
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 2849.545000004582
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 2953.970000031404
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 3057.715000002645
+    },
+    {
+      "deltaMode": 0,
+      "deltaX": -334.6500244140625,
+      "deltaY": 0,
+      "timeStamp": 3153.7650000536814
+    }
+  ]
+}
