@@ -19,7 +19,6 @@
     :class="{
       'transition-enabled': transitionEnabled,
     }"
-    @wheel="wheelProxy"
     @touchstart="touchstartProxy"
     @mousedown="mousedownProxy"
     @gesturestart="gesturestartProxy"
@@ -196,13 +195,11 @@ onUnmounted(() => {
   wheelGestures.disconnect();
 });
 
-const wheelProxy = (event: WheelEvent) => {
-  if (props.wheel) {
-    // const isTrackpad = detectTrackpad(event);
-    // console.log('isTrackpad', isTrackpad);
-    // handleWheel(event);
-  }
-};
+// const wheelProxy = (event: WheelEvent) => {
+//   if (props.wheel) {
+//     handleWheel(event);
+//   }
+// };
 const touchstartProxy = (event: TouchEvent) => {
   if (props.touch) {
     emit('dragGestureStart');
